@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-backend
+  namespace: task-manager
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-backend
+  template:
+    metadata:
+      labels:
+        app: task-backend
+    spec:
+      containers:
+        - name: backend
+          image: task-backend:1.0
+          imagePullPolicy: IfNotPresent   # image is built inside Minikube's Docker
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: task-config
+          env:
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task-secret
+                  key: MYSQL_PASSWORD
+          readinessProbe:               # checks DB connectivity too
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:                # only checks the process is alive
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi

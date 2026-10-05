@@ -1,0 +1,17 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: #f3f4f6; color: #111827; }
+.container { max-width: 640px; margin: 40px auto; padding: 0 16px; }
+h1 { text-align: center; }
+.card { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.1); display: flex; flex-direction: column; gap: 8px; }
+label { font-size: 14px; font-weight: 600; }
+input[type="text"], .card input { padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; }
+button { cursor: pointer; border: 0; border-radius: 4px; padding: 8px 14px; font-size: 14px; }
+.primary { background: #2563eb; color: #fff; align-self: center; }
+.danger { background: #dc2626; color: #fff; }
+.tasks { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tasks li { background: #fff; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.text { flex: 1; display: flex; flex-direction: column; }
+.text span { color: #6b7280; font-size: 13px; }
+.done strong { text-decoration: line-through; color: #6b7280; }
+.status { font-size: 12px; color: #6b7280; }
+.error { color: #dc2626; }
+.empty { justify-content: center; color: #6b7280; }

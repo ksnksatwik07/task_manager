@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-frontend
+  namespace: task-manager
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-frontend
+  template:
+    metadata:
+      labels:
+        app: task-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: task-frontend:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: BACKEND_HOST
+              value: task-backend      # Kubernetes Service name
+            - name: BACKEND_PORT
+              value: "3000"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
