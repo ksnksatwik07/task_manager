@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: task-ingress
+  namespace: task-manager
+  labels:
+    app.kubernetes.io/name: myingress
+spec:
+  defaultBackend:
+    service:
+      name: task-frontend
+      port:
+        number: 80
+      

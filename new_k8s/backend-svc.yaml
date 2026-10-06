@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-backend
+  namespace: task-manager
+  labels:
+    app: task-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: task-backend
+  ports:
+  - port: 3000
+    targetPort: 3000
